@@ -1,0 +1,25 @@
+<h2 class="title">Gestión de Listas de Tareas</h2>
+
+<!-- Lista de tareas -->
+<ul class="todo-list">
+  <li *ngFor="let todoList of todoLists" class="todo-item">
+    <span class="todo-title">{{ todoList.name }}</span> 
+    <span class="todo-description">{{ todoList.description }}</span>
+    <button (click)="deleteTodoList(todoList.id)" class="btn btn-delete">Eliminar</button>
+    <button (click)="selectedTodoList = todoList" class="btn btn-update">Actualizar</button>
+  </li>
+</ul>
+
+<!-- Formulario para crear o actualizar una lista de tareas -->
+<form (ngSubmit)="saveTodoList()" class="todo-form">
+  <input [(ngModel)]="selectedTodoList.name" placeholder="Nombre" name="name" class="input-field" required>
+  <input [(ngModel)]="selectedTodoList.description" placeholder="Descripción" name="description" class="input-field" required>
+  
+  <!-- Selección de Usuario -->
+  <select [(ngModel)]="selectedTodoList.userId" name="userId" class="input-field" required>
+    <option *ngFor="let user of users" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</option>
+  </select>
+
+  <button type="submit" class="btn btn-submit">{{ selectedTodoList.id ? 'Guardar Cambios' : 'Crear Lista de Tareas' }}</button>
+</form>
+

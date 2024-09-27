@@ -1,0 +1,32 @@
+<h2>Gestión de Usuarios</h2>
+
+<!-- Lista de usuarios -->
+<ul class="user-list">
+  <li *ngFor="let user of users" class="user-item">
+    <span>{{ user.firstName }} {{ user.lastName }} - Edad: {{ user.age }}</span>
+    <button (click)="deleteUser(user.id)" class="btn-delete">Eliminar</button>
+    <button (click)="selectUser(user)" class="btn-update">Actualizar</button>
+  </li>
+</ul>
+
+<!-- Formulario para crear o actualizar un usuario -->
+<form (ngSubmit)="saveUser()" class="user-form">
+  <input [(ngModel)]="selectedUser.firstName" placeholder="Nombre" name="userName" class="input-field" required>
+  <input [(ngModel)]="selectedUser.lastName" placeholder="Apellido" name="lastName" class="input-field" required>
+  <input [(ngModel)]="selectedUser.age" placeholder="Edad" name="age" type="number" class="input-field" required>
+  <button type="submit" class="btn-submit">{{ selectedUser.id ? 'Guardar Cambios' : 'Crear Usuario' }}</button>
+</form>
+
+<!-- Buscar un usuario por ID -->
+<form (ngSubmit)="getUserById(userId)" class="user-form">
+  <input [(ngModel)]="userId" placeholder="Buscar por ID" name="userId" type="number" class="input-field">
+  <button type="submit" class="btn-submit">Buscar Usuario</button>
+</form>
+
+<!-- Mostrar el usuario encontrado -->
+<div *ngIf="foundUser" class="user-found">
+  <h3>Usuario Encontrado</h3>
+  <p>ID: {{ foundUser.id }}</p>
+  <p>Nombre: {{ foundUser.firstName }} {{ foundUser.lastName }}</p>
+  <p>Edad: {{ foundUser.age }}</p>
+</div>

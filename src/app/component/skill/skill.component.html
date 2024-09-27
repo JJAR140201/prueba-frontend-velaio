@@ -1,0 +1,36 @@
+<h2>Gestión de Habilidades</h2>
+
+<!-- Lista de habilidades -->
+<ul class="skill-list">
+  <li *ngFor="let skill of skills" class="skill-item">
+    {{ skill.name }} 
+    <button (click)="deleteSkill(skill.id)" class="btn-delete">Eliminar</button>
+    <button (click)="selectedSkill = skill" class="btn-update">Actualizar</button>
+  </li>
+</ul>
+
+<!-- Formulario para crear una nueva habilidad -->
+<form (ngSubmit)="createSkill(skillName)" class="skill-form">
+  <input [(ngModel)]="skillName" placeholder="Nueva habilidad" name="skillName" class="input-field" required>
+  <button type="submit" class="btn-submit">Crear Habilidad</button>
+</form>
+
+<!-- Sección para actualizar la habilidad seleccionada -->
+<div *ngIf="selectedSkill" class="skill-update">
+  <h3>Actualizar Habilidad</h3>
+  <input [(ngModel)]="selectedSkill.name" placeholder="Nombre de la habilidad" class="input-field">
+  <button (click)="updateSkill(selectedSkill)" class="btn-submit">Guardar Cambios</button>
+</div>
+
+<!-- Buscar una habilidad por ID -->
+<form (ngSubmit)="getSkillById(skillId)" class="skill-form">
+  <input [(ngModel)]="skillId" placeholder="Buscar por ID" name="skillId" class="input-field">
+  <button type="submit" class="btn-submit">Buscar Habilidad</button>
+</form>
+
+<!-- Mostramos el resultado de la búsqueda -->
+<div *ngIf="foundSkill" class="skill-found">
+  <h3>Habilidad Encontrada</h3>
+  <p>ID: {{ foundSkill.id }}</p>
+  <p>Nombre: {{ foundSkill.name }}</p>
+</div>

@@ -1,0 +1,31 @@
+<h2 class="title">Gestión de Tareas</h2>
+
+<!-- Lista de tareas -->
+<ul class="task-list">
+  <li *ngFor="let task of tasks" class="task-item">
+    <span class="task-title">{{ task.title }}</span>
+    <span class="task-description">{{ task.description }}</span>
+    <span class="task-date">Fecha de vencimiento: {{ task.dueDate | date: 'yyyy-MM-dd' }}</span>
+    <button (click)="deleteTask(task.id)" class="btn btn-delete">Eliminar</button>
+    <button (click)="selectTask(task)" class="btn btn-update">Actualizar</button>
+  </li>
+</ul>
+
+<!-- Formulario para crear o actualizar una tarea -->
+<form (ngSubmit)="saveTask()" class="task-form">
+  <input [(ngModel)]="selectedTask.title" placeholder="Título" name="title" class="input-field" required>
+  <input [(ngModel)]="selectedTask.description" placeholder="Descripción" name="description" class="input-field" required>
+
+  <!-- Select para asignar usuario -->
+  <select [(ngModel)]="selectedUserId" name="userId" class="input-field" required>
+    <option *ngFor="let user of users" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</option>
+  </select>
+
+  <!-- Select para asignar la lista de tareas -->
+  <select [(ngModel)]="selectedTask.todoList" name="todoList" class="input-field" required>
+    <option *ngFor="let todoList of todoList" [value]="todoList.id">{{ todoList.name }}</option>
+  </select>
+
+  <button type="submit" class="btn btn-submit">{{ selectedTask.id ? 'Guardar Cambios' : 'Crear Tarea' }}</button>
+</form>
+
